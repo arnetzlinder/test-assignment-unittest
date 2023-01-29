@@ -15,7 +15,6 @@ document.getElementById("clearTodos")?.addEventListener("click", () => {
     let todoText: string = (
       document.getElementById("newTodoText") as HTMLInputElement
     ).value;
-    console.log("Todos when creating", todos);
 
     exports.createNewTodo(todoText, todos);
   }
