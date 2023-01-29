@@ -2,64 +2,130 @@
  *@jest-environment jsdom
  */
 
- import { displayError } from "../ts/main";
+ import { IAddResponse } from "../ts/models/IAddResult";
  import { Todo } from "../ts/models/Todo";
  import * as main from "../ts/main";
-import * as functions from "../ts/functions"
+import * as functions from "../ts/functions";
 
  beforeEach(() => {
     document.body.innerHTML = "";
- });
+ })
 
- afterEach(() => {
-    jest.restoreAllMocks();});
+//  afterEach(() => {
+//     jest.restoreAllMocks();});
+
+/********************************************************
+ *              Test for createNewToDo                  *
+ ********************************************************/
+describe("tests for createNewTodo", () => {
+    test("should test if addTodo was called", () => {
+        //Arrange
+        //Act
+        //Assert
+    })
+})
+/********************************************************
+ *              Test for createHTML                     *
+ ********************************************************/
+/********************************************************
+ *              Test for toogleToDos                    *
+ ********************************************************/
+describe("tests for toggleTodos", () => {
+    test("should call changeTodo", () => {
+        //Arrange
+        document.body.innerHTML = `
+        <ul id="todos" class="todo"></ul>
+        `;
+        let spyChangeToDo = jest.spyOn(functions, "changeTodo").mockReturnValue();
+        
+        //Act
+        main.toggleTodo({text: "take out the trash", done: false});
+
+        //Assert
+        expect(spyChangeToDo).toHaveBeenCalled();
+        spyChangeToDo.mockRestore();
+    })
+    test ("should call createHtml", () => {
+        //Arrange
+        document.body.innerHTML = `
+        <ul id="todos" class="todo"></ul>
+        `;
+        let spyCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
+        // let todo = Todo: {text: "take out the trash", done: false};
+        //Act
+        main.toggleTodo({text: "take out the trash", done: false});
+
+        //Assert
+        expect(spyCreateHtml).toHaveBeenCalled();
+        spyCreateHtml.mockRestore();
+    })
+});
+/********************************************************
+ *              Test for displayError                   *
+ ********************************************************/
 
  describe("tests for displayError", () => {
     test ("should add class to div", () => {
-        //arrange
+        //Arrange
         let errorText = 'An error has occured';
         document.body.innerHTML = `
         <ul class="todosContainer"></ul>
         <div id="error" class = "error"></div>
         `;
 
-        //act
-            displayError(errorText, true);
+        //Act
+        main.displayError(errorText, true);
 
-        //assert
-        let result = document.getElementById('error')?.innerHTML;
-        expect(result).toBe(errorText);
+        //Assert
+        let result = document.getElementById('error') as HTMLDivElement;
+        expect(result.classList.contains('show')).toBe(true);
     })
 
     test ("should remove class from div", () => {
-        //arrange
+        //Arrange
         let errorText = 'An error has occured';
         document.body.innerHTML = `
         <ul class="todosContainer"></ul>
         <div id="error" class = "error"></div>
         `;
     
-        //act
-            displayError(errorText, false);
+        //Act
+        main.displayError(errorText, false);
     
-        //assert
+        //Assert
         let result = document.getElementById('error') as HTMLDivElement;
         expect(result.classList.contains('show')).toBe(false);
     })
     
  })
-
+ /********************************************************
+ *              Test for clearTodos                      *
+ ********************************************************/
  describe ("tests for clearTodos", () => {
-    test ("Should trigger removeAllTodos & createHtml", () => {
+    test ("Should trigger removeAllTodos", () => {
         //Arrange
         let todos: Todo[] = [];
+        document.body.innerHTML = `
+        <ul id="todos" class="todo"></ul>
+        `;
         let spyRemoveAllTodos = jest.spyOn(functions, "removeAllTodos").mockReturnValue();
+        //Act
+        main.clearTodos([]);
+        //Assert
+        expect(spyRemoveAllTodos).toHaveBeenCalled();
+        spyRemoveAllTodos.mockRestore();
+    })
+    test ( "Should trigger createHtml", () => {
+        //Arrange
+        document.body.innerHTML = `
+        <ul id="todos" class="todo"></ul>
+        `;
         let spyCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
         //Act
         main.clearTodos([]);
         //Assert
-        expect(spyRemoveAllTodos).toBeCalled();
-        expect(spyCreateHtml).toBeCalled();
+        expect(spyCreateHtml).toHaveBeenCalled();
+        spyCreateHtml.mockRestore();
     })
 
- });
+ })
