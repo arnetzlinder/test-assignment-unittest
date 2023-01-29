@@ -34,7 +34,7 @@ describe("tests for createNewTodo", () => {
         // //Assert
         expect(addition).toBe('testtext');
         expect(todosCheck).toBe(text);
-    })
+    });
 
     test("Test if displayError has been called", () => {
         //Arrange
@@ -48,25 +48,41 @@ describe("tests for createNewTodo", () => {
 
         //Assert
         expect(result).toBe(true);
-    })
-
-    test( "Is createHTML rendering correctly?", () => {
-    //Arrange
-    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-    let renderedTodoList = `<li class="todo__text">test</li>`;
-    let list : Todo[] = [{text: 'test', done: false}];
-    //Act
-    main.createHtml(list);
-    let result = document.querySelector("#todos")?.innerHTML;
-
-    //Assert
-    expect(result).toEqual(renderedTodoList);
-
-    })
-})
+    });
+});
 /********************************************************
  *              Test for createHTML                     *
  ********************************************************/
+describe("Testing the createHtml function", () => {
+    test( "Is createHTML rendering correctly?", () => {
+        //Arrange
+        document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+        let renderedTodoList = `<li class="todo__text">test</li>`;
+        let list : Todo[] = [{text: 'test', done: false}];
+        //Act
+        main.createHtml(list);
+        let result = document.querySelector("#todos")?.innerHTML;
+
+        //Assert
+        expect(result).toEqual(renderedTodoList);
+
+    });
+    test('testing that fetching from localStorage is done correctly', () => {
+
+        //Arrange
+        let todo: Todo[] = [{text: "testing", done: false}];
+        document.body.innerHTML = `<ul id="todos" class="todo"></ul>`
+
+        //Act
+        main.createHtml(todo)
+        let localStorageTodo = JSON.parse(localStorage.getItem("todos") || "[]");
+
+        //Assert
+        expect(localStorageTodo.length).toBe(1);
+
+    });
+});
+
 /********************************************************
  *              Test for toogleToDos                    *
  ********************************************************/
@@ -84,7 +100,7 @@ describe("tests for toggleTodos", () => {
         //Assert
         expect(spyChangeToDo).toHaveBeenCalled();
         spyChangeToDo.mockRestore();
-    })
+    });
     test ("should call createHtml", () => {
         //Arrange
         document.body.innerHTML = `
@@ -98,7 +114,7 @@ describe("tests for toggleTodos", () => {
         //Assert
         expect(spyCreateHtml).toHaveBeenCalled();
         spyCreateHtml.mockRestore();
-    })
+    });
 });
 /********************************************************
  *              Test for displayError                   *
@@ -119,7 +135,7 @@ describe("tests for toggleTodos", () => {
         //Assert
         let result = document.getElementById('error') as HTMLDivElement;
         expect(result.classList.contains('show')).toBe(true);
-    })
+    });
 
     test ("should remove class from div", () => {
         //Arrange
@@ -135,9 +151,9 @@ describe("tests for toggleTodos", () => {
         //Assert
         let result = document.getElementById('error') as HTMLDivElement;
         expect(result.classList.contains('show')).toBe(false);
-    })
+    });
     
- })
+ });
  /********************************************************
  *              Test for clearTodos                      *
  ********************************************************/
@@ -154,7 +170,7 @@ describe("tests for toggleTodos", () => {
         //Assert
         expect(spyRemoveAllTodos).toHaveBeenCalled();
         spyRemoveAllTodos.mockRestore();
-    })
+    });
     test ( "Should trigger createHtml", () => {
         //Arrange
         document.body.innerHTML = `
@@ -166,6 +182,6 @@ describe("tests for toggleTodos", () => {
         //Assert
         expect(spyCreateHtml).toHaveBeenCalled();
         spyCreateHtml.mockRestore();
-    })
+    });
 
- })
+ });
