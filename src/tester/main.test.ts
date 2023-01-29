@@ -57,8 +57,8 @@ describe("Testing the createHtml function", () => {
     test( "Is createHTML rendering correctly?", () => {
         //Arrange
         document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-        let renderedTodoList = `<li class="todo__text">test</li>`;
-        let list : Todo[] = [{text: 'test', done: false}];
+        let renderedTodoList = `<li class="todo__text--done todo__text">test</li>`;
+        let list : Todo[] = [{text: 'test', done: true}];
         //Act
         main.createHtml(list);
         let result = document.querySelector("#todos")?.innerHTML;
@@ -70,7 +70,7 @@ describe("Testing the createHtml function", () => {
     test('testing that fetching from localStorage is done correctly', () => {
 
         //Arrange
-        let todo: Todo[] = [{text: "testing", done: false}];
+        let todo: Todo[] = [{text: "testing", done: true}];
         document.body.innerHTML = `<ul id="todos" class="todo"></ul>`
 
         //Act
@@ -185,3 +185,17 @@ describe("tests for toggleTodos", () => {
     });
 
  });
+
+
+//  describe ("tests for events", () => {
+// 	let events = {} as Function;
+//     beforeEach(() => {
+//     })
+
+//     test ("Should test the first event", () => {
+//         //Arrange
+//         jest.spyOn(main, 'click');
+//         main.document.
+//     });
+ 
+//  });
