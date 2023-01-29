@@ -84,7 +84,7 @@ describe("Testing the createHtml function", () => {
 });
 
 /********************************************************
- *              Test for toogleToDos                    *
+ *              Test for toogleTodos                    *
  ********************************************************/
 describe("tests for toggleTodos", () => {
     test("should call changeTodo", () => {
@@ -95,7 +95,7 @@ describe("tests for toggleTodos", () => {
         let spyChangeToDo = jest.spyOn(functions, "changeTodo").mockReturnValue();
         
         //Act
-        main.toggleTodo({text: "take out the trash", done: false});
+        main.toggleTodo({text: "take out the trash", done: true});
 
         //Assert
         expect(spyChangeToDo).toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe("tests for toggleTodos", () => {
         let spyCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
         // let todo = Todo: {text: "take out the trash", done: false};
         //Act
-        main.toggleTodo({text: "take out the trash", done: false});
+        main.toggleTodo({text: "take out the trash", done: true});
 
         //Assert
         expect(spyCreateHtml).toHaveBeenCalled();
