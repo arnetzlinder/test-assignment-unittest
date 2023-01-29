@@ -2,23 +2,21 @@
  *@jest-environment jsdom
  */
 
- import { IAddResponse } from "../ts/models/IAddResult";
- import { Todo } from "../ts/models/Todo";
- import * as main from "../ts/main";
+import { IAddResponse } from "../ts/models/IAddResult";
+import { Todo } from "../ts/models/Todo";
+import * as main from "../ts/main";
 import * as functions from "../ts/functions";
 
- beforeEach(() => {
+beforeEach(() => {
     document.body.innerHTML = "";
- })
-
-//  afterEach(() => {
-//     jest.restoreAllMocks();});
+    jest.restoreAllMocks();
+});   
 
 /********************************************************
  *              Test for createNewToDo                  *
  ********************************************************/
 describe("tests for createNewTodo", () => {
-    test("should test if addTodo was called", () => {
+    test("should test if addTodo was called and todo added to DOM", () => {
         //Arrange
         document.body.innerHTML = `
         <ul id="todos" class="todo"></ul>
@@ -28,13 +26,12 @@ describe("tests for createNewTodo", () => {
 
         //Act
         main.createNewTodo(todoText, todos);
+        
         let todosCheck = document.querySelector("#todos")?.innerHTML;
-        let text = `
-        <li class="todo_text">testtext</li>
-        `;
-        let addition = document.querySelector(".todo_text")?.innerHTML;
+        let text = `<li class="todo__text">testtext</li>`;
+        let addition = document.querySelector(".todo__text")?.innerHTML;
 
-        //Assert
+        // //Assert
         expect(addition).toBe('testtext');
         expect(todosCheck).toBe(text);
     })
