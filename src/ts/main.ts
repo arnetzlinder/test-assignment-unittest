@@ -17,11 +17,11 @@ document.getElementById("clearTodos")?.addEventListener("click", () => {
     ).value;
     console.log("Todos when creating", todos);
 
-    createNewTodo(todoText, todos);
+    exports.createNewTodo(todoText, todos);
   }
 );
 
-function createNewTodo(todoText: string, todos: Todo[]) {
+export function createNewTodo(todoText: string, todos: Todo[]) {
   let result = addTodo(todoText, todos);
 
   if (result.success) {
@@ -50,7 +50,7 @@ export function createHtml(todos: Todo[]) {
     li.classList.add("todo__text");
     li.innerHTML = todos[i].text;
     li.addEventListener("click", () => {
-      toggleTodo(todos[i]);
+      exports.toggleTodo(todos[i]);
     });
 
     todosContainer.appendChild(li);

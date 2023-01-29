@@ -20,8 +20,23 @@ import * as functions from "../ts/functions";
 describe("tests for createNewTodo", () => {
     test("should test if addTodo was called", () => {
         //Arrange
+        document.body.innerHTML = `
+        <ul id="todos" class="todo"></ul>
+        `;
+        let todoText: string = "testtext";
+        let todos: Todo[] = [];
+
         //Act
+        main.createNewTodo(todoText, todos);
+        let todosCheck = document.querySelector("#todos")?.innerHTML;
+        let text = `
+        <li class="todo_text">testtext</li>
+        `;
+        let addition = document.querySelector(".todo_text")?.innerHTML;
+
         //Assert
+        expect(addition).toBe('testtext');
+        expect(todosCheck).toBe(text);
     })
 })
 /********************************************************
