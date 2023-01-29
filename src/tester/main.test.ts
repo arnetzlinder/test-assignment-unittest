@@ -35,6 +35,20 @@ describe("tests for createNewTodo", () => {
         expect(addition).toBe('testtext');
         expect(todosCheck).toBe(text);
     })
+
+    test("Test if displayError has been called", () => {
+        //Arrange
+        document.body.innerHTML = `<div id="error" class="error"></div>`;
+        let todoText = "aa";
+        let todo = [new Todo ("aa", false)];
+
+        //Act
+        main.createNewTodo(todoText, todo);
+        let result = document.querySelector("#error")?.classList.contains("show");
+
+        //Assert
+        expect(result).toBe(true);
+    })
 })
 /********************************************************
  *              Test for createHTML                     *
