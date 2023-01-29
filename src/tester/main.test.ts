@@ -49,6 +49,20 @@ describe("tests for createNewTodo", () => {
         //Assert
         expect(result).toBe(true);
     })
+
+    test( "Is createHTML rendering correctly?", () => {
+    //Arrange
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let renderedTodoList = `<li class="todo__text">test</li>`;
+    let list : Todo[] = [{text: 'test', done: false}];
+    //Act
+    main.createHtml(list);
+    let result = document.querySelector("#todos")?.innerHTML;
+
+    //Assert
+    expect(result).toEqual(renderedTodoList);
+
+    })
 })
 /********************************************************
  *              Test for createHTML                     *
