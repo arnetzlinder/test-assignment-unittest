@@ -9,12 +9,16 @@ import * as functions from "../ts/functions"
     document.body.innerHTML = "";
  });
 
+ /********************************************************
+ *              Test for addTodos                        *
+ ********************************************************/
+
  describe("addTodo", () => {
     test("should add new todo", () => {
       //Arrange
       let todo : Todo [] = [];
-      let toDoText = "Take out the trash";
-      let listLength = todo.length;
+      const toDoText = "Take out the trash";
+      const listLength = todo.length;
       //Act
       functions.addTodo(toDoText, todo);
 
@@ -25,14 +29,34 @@ import * as functions from "../ts/functions"
     test("should not add todo", () => {
       //Arrange
       let todo : Todo [] = [];
-      let toDoText = "A";
-      let listLength = todo.length;
+      const toDoText = "A";
+      const listLength = todo.length;
       //Act
       functions.addTodo(toDoText, todo); 
       //Assert
       expect(todo.length).toBe(listLength);
     })
  })
+
+/********************************************************
+*              Test for sortAllTodosByDescription          *
+********************************************************/
+describe("tests for sortAllTodosByDescription", () => {
+  test("if array sorted?", () => {
+    //Assert
+    let todosArray : Todo [] = [new Todo("take out trash", true), new Todo("clean kitchen", true), new Todo("wash laundry", false)];
+
+    //Act
+    functions.sortAllTodosByDescription(todosArray);
+
+    //Assert
+    expect(todosArray[1].text).toBe("take out trash");
+  })
+})
+
+/********************************************************
+*              Test for changeTodo                      *
+********************************************************/
 
  test("changeTodo status should change", () => {
   //Arrange
@@ -43,13 +67,15 @@ import * as functions from "../ts/functions"
   expect(todo.done).toBe(true);
  })
 
- //Glöm ej test för att testa skriven sorteringsfunktion
+/********************************************************
+*              Test for removeAllTodos                  *
+********************************************************/
 
  test ("removeAllTodos", () => {
   //Arrange
   let todo : Todo [] = [];
-  let todoOne = functions.addTodo("clean kitchen", todo);
-  let todoTwo = functions.addTodo("take out trash", todo);
+  const todoOne = functions.addTodo("clean kitchen", todo);
+  const todoTwo = functions.addTodo("take out trash", todo);
   //Act
   functions.removeAllTodos(todo);
   //Assert

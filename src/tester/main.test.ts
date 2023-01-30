@@ -2,7 +2,6 @@
  *@jest-environment jsdom
  */
 
-import { IAddResponse } from "../ts/models/IAddResult";
 import { Todo } from "../ts/models/Todo";
 import * as main from "../ts/main";
 import * as functions from "../ts/functions";
@@ -28,12 +27,12 @@ describe("tests for createNewTodo", () => {
         main.createNewTodo(todoText, todos);
         
         let todosCheck = document.querySelector("#todos")?.innerHTML;
-        let text = `<li class="todo__text">testtext</li>`;
+        let todoLiText = `<li class="todo__text">testtext</li>`;
         let addition = document.querySelector(".todo__text")?.innerHTML;
 
         // //Assert
         expect(addition).toBe('testtext');
-        expect(todosCheck).toBe(text);
+        expect(todosCheck).toBe(todoLiText);
     });
 
     test("Test if displayError has been called", () => {
@@ -116,6 +115,7 @@ describe("tests for toggleTodos", () => {
         spyCreateHtml.mockRestore();
     });
 });
+
 /********************************************************
  *              Test for displayError                   *
  ********************************************************/
@@ -152,11 +152,12 @@ describe("tests for toggleTodos", () => {
         let result = document.getElementById('error') as HTMLDivElement;
         expect(result.classList.contains('show')).toBe(false);
     });
-    
  });
+
  /********************************************************
  *              Test for clearTodos                      *
  ********************************************************/
+
  describe ("tests for clearTodos", () => {
     test ("Should trigger removeAllTodos", () => {
         //Arrange
@@ -183,7 +184,6 @@ describe("tests for toggleTodos", () => {
         expect(spyCreateHtml).toHaveBeenCalled();
         spyCreateHtml.mockRestore();
     });
-
  });
 
 

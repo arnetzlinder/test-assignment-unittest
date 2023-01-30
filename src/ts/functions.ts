@@ -19,12 +19,6 @@ export function removeAllTodos(todos: Todo[]) {
   todos.splice(0, todos.length);
 }
 
-export function sortTodosByFirstLetter(todos: Todo[]) {
-
-  todos.sort((a, b) => {
-  if (a.done === b.done) {
-    return 0;
+export function sortAllTodosByDescription(todos: Todo[]) {
+  todos.sort ((a, b) => (a.text > b.text) ? 1 : -1);
   }
-  return a.done ? 1 : -1;
-  });
-};
